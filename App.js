@@ -24,7 +24,7 @@ export default class App extends Component {
         }
       }}>
       <Stack.Screen name='HomeScreen' component={HomeScreen} options={{
-        title:'Home'
+        title:'Contact App'
       }}/>
       <Stack.Screen name='AddNewContactScreen' 
       component={AddNewContactScreen} options={{

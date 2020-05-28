@@ -1,7 +1,6 @@
 import React,{Component} from 'react';
 import { StyleSheet, Text, View, 
-  AsyncStorage, Keyboard, Alert, 
-  TouchableWithoutFeedback, ScrollView } from 'react-native';
+  AsyncStorage, Alert, ScrollView } from 'react-native';
 import {Form, Item, Input, Label, Button} from 'native-base';
 
 export default class AddNewContactScreen extends Component {
@@ -14,6 +13,7 @@ export default class AddNewContactScreen extends Component {
       email:'',
       city:''
     };
+    this.saveContact=this.saveContact.bind(this);
   }
 
 saveContact=async ()=>{
@@ -36,9 +36,33 @@ saveContact=async ()=>{
 
   render(){
     return(
-      <View style={styles.container}>
-        <Text>Welcome to AddNewContactScreen</Text>
-      </View>
+      <ScrollView style={styles.container}>
+      <Form>
+      <Item style={styles.inputItem} floatingLabel>
+        <Label>First Name</Label>
+        <Input autoCorrect={false} onChangeText={fname=>this.setState({fname})}/>
+      </Item>
+      <Item style={styles.inputItem} floatingLabel>
+        <Label>Last Name</Label>
+        <Input autoCorrect={false} onChangeText={lname=>this.setState({lname})}/>
+      </Item>
+      <Item style={styles.inputItem} floatingLabel>
+        <Label>Phone</Label>
+        <Input autoCorrect={false} keyboardType="numeric" 
+        onChangeText={phone=>this.setState({phone})}/>
+      </Item>
+      <Item style={styles.inputItem} floatingLabel>
+        <Label>Email</Label>
+        <Input autoCorrect={false} onChangeText={email=>this.setState({email})}/>
+      </Item>
+      <Item style={styles.inputItem} floatingLabel>
+        <Label>City</Label>
+        <Input autoCorrect={false} onChangeText={city=>this.setState({city})}/>
+      </Item>
+      <Button style={styles.button} full onPress={this.saveContact}>
+      <Text style={styles.buttonText}>Save Contact</Text></Button>
+    </Form>
+      </ScrollView>
     );
   }
 }
@@ -47,8 +71,23 @@ saveContact=async ()=>{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff"
   },
+  inputItem: {
+    margin: 10
+  },
+  button: {
+    backgroundColor: "#B83227",
+    margin: 40
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold"
+  },
+  empty: {
+    height: 500,
+    backgroundColor: "#FFF"
+  }
 });
+
+

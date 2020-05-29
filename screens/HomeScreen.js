@@ -12,6 +12,29 @@ export default class HomeScreen extends Component {
         };
     }
 
+    UNSAFE_componentWillMount(){
+      const {navigation}=this.props;
+      navigation.addListener('willFocus',()=>{
+        this.getAllContacts();
+      });
+    }
+
+    getAllContacts=async ()=>{
+      await AsyncStorage.getAllKeys()
+      .then(keys=>{
+        return AsyncStorage.multiGet(keys)
+        .then(res=>{
+          this.setState({data:res.sort(function(a,b){
+          if(JSON.parse(a[1]).fname<JSON.parse(b[1]).fname)return -1;
+          if(JSON.parse(a[1]).fname>JSON.parse(b[1]).fname)return 1;
+        })
+      })
+      })
+        .catch(err=>console.log(err));
+      })
+      .catch(err=>console.log(err));
+    }
+
   render(){
     return(
       <View style={styles.container}>

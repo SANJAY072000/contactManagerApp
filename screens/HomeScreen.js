@@ -12,8 +12,8 @@ export default class HomeScreen extends Component {
         };
     }
 
-    async componentDidMount(){
-      await AsyncStorage.getAllKeys()
+     componentDidMount(){
+      AsyncStorage.getAllKeys()
       .then(keys=>{
         return AsyncStorage.multiGet(keys)
         .then(res=>{
@@ -38,7 +38,18 @@ export default class HomeScreen extends Component {
       <FlatList data={this.state.data} renderItem={({item})=>{
         const obj=JSON.parse(item[1]);
         return (<TouchableOpacity>
-          <Text>{obj.fname}</Text>
+          <Card style={styles.listItem}>
+          <View style={styles.iconContainer}>
+          <Text style={styles.contactIcon}>
+          {obj.fname[0].toUpperCase()}</Text>
+          </View>
+          <View style={styles.infoContainer}>
+          <Text style={styles.infoText}>
+          {obj.fname} {obj.lname}</Text>
+          <Text style={styles.infoText}>
+          {obj.phone}</Text>
+          </View>
+          </Card>
           </TouchableOpacity>);
       }} 
       keyExtractor={(item,index)=>item[0].toString()}/>

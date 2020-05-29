@@ -12,25 +12,30 @@ export default class HomeScreen extends Component {
         };
     }
 
-     componentDidMount(){
-      AsyncStorage.getAllKeys()
-      .then(keys=>{
-        return AsyncStorage.multiGet(keys)
-        .then(res=>{
-          this.setState({data:res.sort(function(a,b){
-          if(JSON.parse(a[1]).fname<JSON.parse(b[1]).fname)return -1;
-          if(JSON.parse(a[1]).fname>JSON.parse(b[1]).fname)return 1;
-        })
-      })
-      })
-        .catch(err=>console.log(err));
-      })
-      .catch(err=>console.log(err));
-      // await AsyncStorage.clear()
-      // .then(re=>console.log(re))
-      this.forceUpdate();
+    UNSAFE_componentWillMount(){
+      // AsyncStorage.clear()
+      // .then(res=>console.log(res))
+      // .catch(err=>console.log(err));
+     this.props.navigation.addListener('focus', () => {
+     this.getAllContacts();
+      });
     }
 
+    getAllContacts=async ()=>{
+     await AsyncStorage.getAllKeys()
+     .then(keys=>{
+       return AsyncStorage.multiGet(keys)
+       .then(res=>{
+       this.setState({data:res.sort(function(a,b){
+         if(JSON.parse(a[1]).fname<JSON.parse(b[1]).fname)return -1;
+         if(JSON.parse(a[1]).fname>JSON.parse(b[1]).fname)return 1;
+       })
+     })
+     })
+       .catch(err=>console.log(err));
+     })
+     .catch(err=>console.log(err));
+    }
 
   render(){
     return(

@@ -12,14 +12,7 @@ export default class HomeScreen extends Component {
         };
     }
 
-    UNSAFE_componentWillMount(){
-      const {navigation}=this.props;
-      navigation.addListener('willFocus',()=>{
-        this.getAllContacts();
-      });
-    }
-
-    getAllContacts=async ()=>{
+    async componentDidMount(){
       await AsyncStorage.getAllKeys()
       .then(keys=>{
         return AsyncStorage.multiGet(keys)
@@ -33,11 +26,24 @@ export default class HomeScreen extends Component {
         .catch(err=>console.log(err));
       })
       .catch(err=>console.log(err));
+      // await AsyncStorage.clear()
+      // .then(re=>console.log(re))
+      this.forceUpdate();
     }
+
 
   render(){
     return(
       <View style={styles.container}>
+      <FlatList data={this.state.data} renderItem={({item})=>{
+        const obj=JSON.parse(item[1]);
+        return (<TouchableOpacity>
+          <Text>{obj.fname}</Text>
+          </TouchableOpacity>);
+      }} 
+      keyExtractor={(item,index)=>item[0].toString()}/>
+
+
         <TouchableOpacity style={styles.floatButton} onPress={()=>this.props
             .navigation.navigate('AddNewContactScreen')}>
         <Entypo name='plus' size={30} color='#fff'/>

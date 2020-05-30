@@ -5,6 +5,7 @@ import HomeScreen from './screens/HomeScreen';
 import AddNewContactScreen from './screens/AddNewContactScreen';
 import EditContactScreen from './screens/EditContactScreen';
 import ViewContactScreen from './screens/ViewContactScreen';
+import DeleteContactScreen from './screens/DeleteContactScreen';
 
 const Stack=createStackNavigator();
 
@@ -35,6 +36,9 @@ export default class App extends Component {
       }}/>
       <Stack.Screen name='ViewContactScreen' component={ViewContactScreen} options={{
         title:'View Contact'
+      }}/>
+      <Stack.Screen name='DeleteContactScreen' component={DeleteContactScreen} options={{
+        title:'Delete Contact'
       }}/>
       </Stack.Navigator>
       </NavigationContainer>

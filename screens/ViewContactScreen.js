@@ -59,6 +59,7 @@ export default class ViewContactScreen extends Component {
   }
 
   editContact=key=>this.props.navigation.navigate('EditContactScreen',{key});
+  deleteContact=key=>this.props.navigation.navigate('DeleteContactScreen',{key});
 
   render(){
     return(
@@ -67,7 +68,8 @@ export default class ViewContactScreen extends Component {
       <Text style={styles.contactIcon}>{this.state.fname[0].toUpperCase()}
       </Text>
       <View style={styles.nameContainer}>
-      <Text style={styles.name}>{`${this.state.fname} ${this.state.lname}`}</Text></View>
+      <Text style={styles.name}>{`${this.state.fname} ${this.state.lname}`}</Text>
+      </View>
       </View>
       <View style={styles.infoContainer}>
       <Card>
@@ -83,6 +85,30 @@ export default class ViewContactScreen extends Component {
       <CardItem bordered><Text style={styles.infoText}>{this.state.city}</Text></CardItem>
       </Card>
       </View>
+      <Card style={styles.actionContainer}>
+      <CardItem bordered style={styles.actionButton}>
+      <TouchableOpacity onPress={()=>this.smsAction(this.state.phone)}>
+      <Entypo size={50} name='message' color='#B83227'/>
+      </TouchableOpacity>
+      </CardItem>
+      <CardItem bordered style={styles.actionButton}>
+      <TouchableOpacity onPress={()=>this.callAction(this.state.phone)}>
+      <Entypo size={50} name='phone' color='#B83227'/>
+      </TouchableOpacity>
+      </CardItem>
+      </Card>
+      <Card style={styles.actionContainer}>
+      <CardItem bordered style={styles.actionButton}>
+      <TouchableOpacity onPress={()=>this.editContact(this.state.key)}>
+      <Entypo size={50} name='edit' color='#B83227'/>
+      </TouchableOpacity>
+      </CardItem>
+      <CardItem bordered style={styles.actionButton}>
+      <TouchableOpacity onPress={()=>this.deleteContact(this.state.key)}>
+      <Entypo size={50} name='trash' color='#B83227'/>
+      </TouchableOpacity>
+      </CardItem>
+      </Card>
       </ScrollView>
     );
   }

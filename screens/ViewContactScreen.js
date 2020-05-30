@@ -21,9 +21,32 @@ export default class ViewContactScreen extends Component {
   componentDidMount(){
     this.props.navigation.addListener('focus',()=>{
       let key=this.props.route.params.key;
-      
+      this.getData(key);
     });
   }
+
+  getData=async key=>{
+    await AsyncStorage.getItem(key)
+    .then(res=>{
+      let obj=JSON.parse(res);
+      obj[key]=key;
+      this.setState(obj);
+    })
+    .catch(err=>console.log(err));
+  }
+
+  callAction=phone=>{
+    let phoneNumber=phone;
+    if(Platform.OS!=='android')phoneNumber=`telpromt:${phone}`;
+    else phoneNumber=`tel:${phone}`;
+    Linking.canOpenURL(phoneNumber)
+    .then(supported=>{
+      if(!supported)Alert.alert('Phone Number unavailable');
+      else Linking.openURL(phoneNumber);
+    })
+    .catch(err=>console.log(err));
+  }
+
 
   render(){
     return(

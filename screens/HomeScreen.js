@@ -42,7 +42,11 @@ export default class HomeScreen extends Component {
       <View style={styles.container}>
       <FlatList data={this.state.data} renderItem={({item})=>{
         const obj=JSON.parse(item[1]);
-        return (<TouchableOpacity>
+        return (
+          <TouchableOpacity onPress={()=>
+            this.props.navigation.navigate('ViewContactScreen',{
+              key:item[0].toString()
+            })}>
           <Card style={styles.listItem}>
           <View style={styles.iconContainer}>
           <Text style={styles.contactIcon}>

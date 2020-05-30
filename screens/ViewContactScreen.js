@@ -47,6 +47,18 @@ export default class ViewContactScreen extends Component {
     .catch(err=>console.log(err));
   }
 
+  smsAction=phone=>{
+    let phoneNumber=phone;
+    phoneNumber=`sms:${phone}`;
+    Linking.canOpenURL(phoneNumber)
+    .then(supported=>{
+      if(!supported)Alert.alert('Phone Number unavailable');
+      else Linking.openURL(phoneNumber);
+    })
+    .catch(err=>console.log(err));
+  }
+
+  editContact=key=>this.props.navigation.navigate('EditContactScreen',{key});
 
   render(){
     return(
@@ -61,8 +73,47 @@ export default class ViewContactScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff"
   },
+  contactIconContainer: {
+    height: 200,
+    backgroundColor: "#B83227",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  contactIcon: {
+    fontSize: 100,
+    fontWeight: "bold",
+    color: "#fff"
+  },
+  nameContainer: {
+    width: "100%",
+    height: 70,
+    padding: 10,
+    backgroundColor: "rgba(255,255,255,0.5)",
+    justifyContent: "center",
+    position: "absolute",
+    bottom: 0
+  },
+  name: {
+    fontSize: 24,
+    color: "#000",
+    fontWeight: "900"
+  },
+  infoText: {
+    fontSize: 18,
+    fontWeight: "300"
+  },
+  actionContainer: {
+    flexDirection: "row"
+  },
+  actionButton: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  actionText: {
+    color: "#B83227",
+    fontWeight: "900"
+  }
 });

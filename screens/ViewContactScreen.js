@@ -29,7 +29,7 @@ export default class ViewContactScreen extends Component {
     await AsyncStorage.getItem(key)
     .then(res=>{
       let obj=JSON.parse(res);
-      obj[key]=key;
+      obj['key']=key;
       this.setState(obj);
     })
     .catch(err=>console.log(err));
@@ -62,9 +62,28 @@ export default class ViewContactScreen extends Component {
 
   render(){
     return(
-      <View style={styles.container}>
-        <Text>Welcome to ViewContactScreen</Text>
+      <ScrollView style={styles.container}>
+      <View style={styles.contactIconContainer}>
+      <Text style={styles.contactIcon}>{this.state.fname[0].toUpperCase()}
+      </Text>
+      <View style={styles.nameContainer}>
+      <Text style={styles.name}>{`${this.state.fname} ${this.state.lname}`}</Text></View>
       </View>
+      <View style={styles.infoContainer}>
+      <Card>
+      <CardItem bordered><Text style={styles.infoText}>Phone</Text></CardItem>
+      <CardItem bordered><Text style={styles.infoText}>{this.state.phone}</Text></CardItem>
+      </Card>
+      <Card>
+      <CardItem bordered><Text style={styles.infoText}>Email</Text></CardItem>
+      <CardItem bordered><Text style={styles.infoText}>{this.state.email}</Text></CardItem>
+      </Card>
+      <Card>
+      <CardItem bordered><Text style={styles.infoText}>City</Text></CardItem>
+      <CardItem bordered><Text style={styles.infoText}>{this.state.city}</Text></CardItem>
+      </Card>
+      </View>
+      </ScrollView>
     );
   }
 }
@@ -115,5 +134,8 @@ const styles = StyleSheet.create({
   actionText: {
     color: "#B83227",
     fontWeight: "900"
-  }
+  },
+  infoContainer: {
+    flexDirection: "column"
+  },
 });

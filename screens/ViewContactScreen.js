@@ -59,7 +59,20 @@ export default class ViewContactScreen extends Component {
   }
 
   editContact=key=>this.props.navigation.navigate('EditContactScreen',{key});
-  deleteContact=key=>this.props.navigation.navigate('DeleteContactScreen',{key});
+  deleteContact=key=>{
+    Alert.alert('Delete Contact ?',`${this.state.fname} ${this.state.lname}`,
+    [{
+      text:'Cancel',onPress:()=>console.log('Cancelled')
+    },
+  {
+    text:'Ok',onPress:async ()=>{
+      await AsyncStorage.removeItem(key)
+      .then(()=>this.props.navigation.goBack())
+      .catch(err=>console.log(err));
+    }
+  }]);
+    
+  }
 
   render(){
     return(

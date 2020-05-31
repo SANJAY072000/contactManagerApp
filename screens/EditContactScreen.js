@@ -34,6 +34,22 @@ export default class EditContactScreen extends Component {
     .catch(err=>console.log(err));
   }
 
+  updateContact=async key=>{
+  if(this.state.fname!==''&&this.state.lname!==''&&this.state.phone!==''&&this.state.email!==''&&this.state.city!==''){
+    let obj={
+      fname:this.state.fname,
+      lname:this.state.lname,
+      phone:this.state.phone,
+      email:this.state.email,
+      city:this.state.city
+    };
+    await AsyncStorage.setItem(key,JSON.stringify(obj))
+    .then(()=>this.props.navigation.goBack())
+    .catch(err=>console.log(err));
+  }
+  else Alert.alert('All fields are required');
+  }
+
   render(){
     return(
       <View style={styles.container}>
@@ -47,8 +63,18 @@ export default class EditContactScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    margin: 10
   },
+  inputItem: {
+    margin: 10
+  },
+  button: {
+    backgroundColor: "#B83227",
+    marginTop: 40
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold"
+  }
 });

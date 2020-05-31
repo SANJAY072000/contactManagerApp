@@ -13,9 +13,6 @@ export default class HomeScreen extends Component {
     }
 
     UNSAFE_componentWillMount(){
-      // AsyncStorage.clear()
-      // .then(res=>console.log(res))
-      // .catch(err=>console.log(err));
      this.props.navigation.addListener('focus', () => {
      this.getAllContacts();
       });

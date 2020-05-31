@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { StyleSheet, Text, View, 
+import { StyleSheet, Text, ScrollView, 
   TouchableWithoutFeedback, Keyboard, AsyncStorage, Alert } from 'react-native';
 import {Form, Item, Input, Label, Button} from 'native-base';
 
@@ -52,9 +52,33 @@ export default class EditContactScreen extends Component {
 
   render(){
     return(
-      <View style={styles.container}>
-        <Text>Welcome to EditContactScreen</Text>
-      </View>
+      <ScrollView style={styles.container}>
+      <Form>
+      <Item style={styles.inputItem} floatingLabel>
+        <Label>First Name</Label>
+        <Input autoCorrect={false} onChangeText={fname=>this.setState({fname})}/>
+      </Item>
+      <Item style={styles.inputItem} floatingLabel>
+        <Label>Last Name</Label>
+        <Input autoCorrect={false} onChangeText={lname=>this.setState({lname})}/>
+      </Item>
+      <Item style={styles.inputItem} floatingLabel>
+        <Label>Phone</Label>
+        <Input autoCorrect={false} keyboardType="numeric" 
+        onChangeText={phone=>this.setState({phone})}/>
+      </Item>
+      <Item style={styles.inputItem} floatingLabel>
+        <Label>Email</Label>
+        <Input autoCorrect={false} onChangeText={email=>this.setState({email})}/>
+      </Item>
+      <Item style={styles.inputItem} floatingLabel>
+        <Label>City</Label>
+        <Input autoCorrect={false} onChangeText={city=>this.setState({city})}/>
+      </Item>
+      <Button style={styles.button} full onPress={()=>this.updateContact(this.state.key)}>
+      <Text style={styles.buttonText}>Update Contact</Text></Button>
+    </Form>
+      </ScrollView>
     );
   }
 }

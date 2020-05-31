@@ -22,7 +22,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
-    }
+      "supportsTablet": true,
+      "bundleIdentifier": "ContactManager"
+    },
+    "android": {
+      "package": "ContactManager"
+    },
+    "entryPoint": "node_modules/expo/AppEntry.js"
   }
 }
